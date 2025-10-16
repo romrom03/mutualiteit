@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../components/MutualityGrid.css";
+import "./MutualityGrid.css";
 
 const mutualities = [
   { name: "CM", img: "/images/cm.png" },

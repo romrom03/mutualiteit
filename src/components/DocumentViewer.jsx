@@ -1,52 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import mutualityConfig from "../config/mutualityConfig.json";
 import { generateMutualityPDF } from "../utils/pdfGenerator";
-import { listFields } from "../utils/checkFields";
 
 export default function DocumentViewer() {
-  const { name: mutuality } = useParams();
+  const { name: mutualiteit } = useParams();
   const navigate = useNavigate();
 
-  const handleGenerate = async () => {
-    const userData = {
-      firstName: "Jérôme",
-      lastName: "Fonteyne",
-      street: "Kerkstraat",
-      number: "12",
-      bus: "A",
-      postalCode: "9000",
-      city: "Gent",
-      country: "België",
-      nationalId: "93051412345",
-      organizationName: "Jeugdvereniging X",
-      organizationAddress: "Straat 5, 9000 Gent",
-      phoneOrEmail: "info@jeugd.be",
-      paidAmount: "50",
-      campPeriod: "01/07/2025 - 07/07/2025",
-      paymentDate: "01/06/2025",
-      sport: "Volleybal",
-      sportFederation: "Vlaamse Volleybalbond",
-      youthAssociation: "Scouts X",
-    };
+  // Haal de configuratie op voor de gekozen mutualiteit
+  const config = mutualityConfig[mutualiteit] || null;
 
+  // Initialiseer formulierdata (altijd aanroepen, zelfs als config null is)
+  const [formData, setFormData] = useState(
+    config
+      ? Object.keys(config.fields).reduce((acc, key) => {
+          acc[key] = ""; // Standaard lege waarden
+          return acc;
+        }, {})
+      : {}
+  );
+
+  // Als er geen configuratie is, toon een foutmelding
+  if (!config) {
+    return <p>Geen configuratie gevonden voor {mutualiteit}.</p>;
+  }
+
+  // Waardes bijhouden bij verandering
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // PDF genereren
+  const handleGenerate = async () => {
     try {
-      await generateMutualityPDF(mutuality, userData);
+      // Genereer de ingevulde PDF
+      const pdfBytes = await generateMutualityPDF(mutualiteit, formData, config.fields);
+  
+      // Maak een downloadlink voor de PDF
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+  
+      // Simuleer een klik om de PDF te downloaden
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${mutualiteit}_filled_form.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+  
+      alert("PDF succesvol gegenereerd en gedownload!");
     } catch (error) {
-      alert(`Er is iets misgegaan bij het invullen van ${mutuality}`);
+      alert(`Er is iets misgegaan bij het invullen van ${mutualiteit}`);
       console.error(error);
     }
   };
 
-  const handleListFields = async () => {
-    try {
-      await listFields(mutuality);
-    } catch (e) {
-      console.error("Fout bij ophalen veldnamen:", e);
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center text-center">
+    <div className="flex flex-col items-center text-center p-6">
       <button
         onClick={() => navigate("/")}
         className="mb-6 text-blue-600 hover:underline self-start"
@@ -54,25 +64,41 @@ export default function DocumentViewer() {
         ← Terug naar overzicht
       </button>
 
-      <h2 className="text-2xl font-semibold mb-4">{mutuality}</h2>
-      <img
-        src={`/images/${mutuality.toLowerCase()}.jpg`}
-        alt={mutuality}
-        className="w-64 h-64 object-contain mb-6 rounded-lg shadow"
-      />
+      <h2 className="text-3xl font-semibold mb-6">
+        Formulier voor {mutualiteit}
+      </h2>
 
-      <div className="flex gap-4">
+      {/* Dynamisch formulier */}
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl text-left"
+      >
+        {Object.entries(config.fields).map(([key, fieldConfig]) => {
+          const label =
+            typeof fieldConfig === "string" ? fieldConfig : fieldConfig.label;
+
+          return (
+            <div key={key} className="flex flex-col">
+              <label className="font-medium mb-1">{label}</label>
+              <input
+                type="text"
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400"
+                placeholder={`Voer ${label.toLowerCase()} in`}
+              />
+            </div>
+          );
+        })}
+      </form>
+
+      <div className="flex gap-4 mt-8">
         <button
           onClick={handleGenerate}
           className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
         >
           PDF invullen & downloaden
-        </button>
-        <button
-          onClick={handleListFields}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Check veldnamen in console
         </button>
       </div>
     </div>

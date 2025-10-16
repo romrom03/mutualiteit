@@ -1,0 +1,32 @@
+{
+    "CM": {
+      "pdfTemplate": "cm.pdf",
+      "fields": {
+        "voornaam": { "label": "Voornaam", "pdfField": "Voornaam" },
+        "achternaam": { "label": "Achternaam", "pdfField": "Naam" },
+        "straat": { "label": "Straat", "pdfField": "Straat" },
+        "nummer": { "label": "Nummer", "pdfField": "Nummer" },
+        "bus": { "label": "Bus", "pdfField": "Bus" },
+        "postcode": { "label": "Postcode", "pdfField": "Postcode" },
+        "gemeente": { "label": "Gemeente", "pdfField": "Gemeente" },
+        "land": { "label": "Land", "pdfField": "Land" },
+        "rijksregisternummer": { "label": "Rijksregisternummer", "type": "split", "prefix": "RR." },
+        "betaaldBedrag": { "label": "Betaald bedrag", "pdfField": "Betaald bedrag" },
+        "datum": { "label": "Datum betaling", "type": "split", "prefix": "Datum." }
+      }
+    },
+    "Solidaris": {
+      "pdfTemplate": "Solidaris.pdf",
+      "fields": {
+        "voornaam": { "label": "Voornaam", "pdfField": "Text2" },
+        "achternaam": { "label": "Achternaam", "pdfField": "Text1" },
+        "volledigAdres": { "label": "Volledig Adres", "pdfField": "Text3" },
+        "rijksregisternummer": { "label": "Rijksregisternummer", "pdfField": "Text4" },
+        "betaaldBedrag": { "label": "Betaald Bedrag (€)", "pdfField": "Text10" },
+        "naamOuder": { "label": "Naam ouder", "pdfField": "Text13" },
+        "datum": { "label": "Datum betaling", "pdfField": "Text12" },
+        "jaar": { "label": "Jaar", "pdfField": "Text11" }
+      }
+    }
+  }
+  
