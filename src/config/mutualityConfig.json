@@ -2,30 +2,34 @@
     "CM": {
       "pdfTemplate": "cm.pdf",
       "fields": {
-        "voornaam": { "label": "Voornaam", "pdfField": "Voornaam" },
-        "achternaam": { "label": "Achternaam", "pdfField": "Naam" },
-        "straat": { "label": "Straat", "pdfField": "Straat" },
-        "nummer": { "label": "Nummer", "pdfField": "Nummer" },
+        "voornaam": { "label": "Voornaam", "pdfField": "Voornaam", "required": true },
+        "achternaam": { "label": "Achternaam", "pdfField": "Naam", "required": true },
+        "straat": { "label": "Straat", "pdfField": "Straat", "required": true },
+        "nummer": { "label": "Nummer", "pdfField": "Nummer", "required": true },
         "bus": { "label": "Bus", "pdfField": "Bus" },
-        "postcode": { "label": "Postcode", "pdfField": "Postcode" },
-        "gemeente": { "label": "Gemeente", "pdfField": "Gemeente" },
-        "land": { "label": "Land", "pdfField": "Land" },
-        "rijksregisternummer": { "label": "Rijksregisternummer", "type": "split", "prefix": "RR." },
-        "betaaldBedrag": { "label": "Betaald bedrag", "pdfField": "Betaald bedrag" },
-        "datum": { "label": "Datum betaling", "type": "split", "prefix": "Datum." }
+        "postcode": { "label": "Postcode", "pdfField": "Postcode", "required": true },
+        "gemeente": { "label": "Gemeente", "pdfField": "Gemeente", "required": true },
+        "land": { "label": "Land", "pdfField": "Land", "required": true },
+        "rijksregisternummer": { "label": "Rijksregisternummer", "type": "split", "prefix": "RR.", "required": true },
+        "betaaldBedrag": { "label": "Betaald bedrag", "pdfField": "Betaald bedrag", "required": true },
+        "datumIngevuld": { "label": "Datum ingevuld (vandaag)", "type": "split", "prefix": "Datum.", "startIndex": 8, "columns": [0], "allowSlashes": false  },
+        "datumVertrokken": { "label": "Datum vertrokken", "type": "split", "prefix": "Datum.", "startIndex": 8, "columns": [1], "allowSlashes": true  },
+        "datumBetaling": { "label": "Datum betaling", "pdfField": "Datum betaling", "required": true },
+        "periodeKamp": { "label": "Periode kamp van - tot", "pdfField": "Periode kamp  van - tot", "required": true },
+        "begonnenDagen": {"label": "Aantal begonnen dagen", "pdfField": "Aantal begonnen dagen.0", "required": true }
       }
     },
     "Solidaris": {
       "pdfTemplate": "Solidaris.pdf",
       "fields": {
-        "voornaam": { "label": "Voornaam", "pdfField": "Text2" },
-        "achternaam": { "label": "Achternaam", "pdfField": "Text1" },
-        "volledigAdres": { "label": "Volledig Adres", "pdfField": "Text3" },
-        "rijksregisternummer": { "label": "Rijksregisternummer", "pdfField": "Text4" },
-        "betaaldBedrag": { "label": "Betaald Bedrag (€)", "pdfField": "Text10" },
-        "naamOuder": { "label": "Naam ouder", "pdfField": "Text13" },
-        "datum": { "label": "Datum betaling", "pdfField": "Text12" },
-        "jaar": { "label": "Jaar", "pdfField": "Text11" }
+        "voornaam": { "label": "Voornaam", "pdfField": "Text2", "required": true },
+        "achternaam": { "label": "Achternaam", "pdfField": "Text1", "required": true },
+        "volledigAdres": { "label": "Volledig Adres", "pdfField": "Text3", "required": true },
+        "rijksregisternummer": { "label": "Rijksregisternummer", "pdfField": "Text4", "required": true },
+        "betaaldBedrag": { "label": "Betaald Bedrag (€)", "pdfField": "Text10", "required": true },
+        "naamOuder": { "label": "Naam ouder", "pdfField": "Text13", "required": true },
+        "datum": { "label": "Datum betaling", "pdfField": "Text12", "required": true },
+        "jaar": { "label": "Jaar", "pdfField": "Text11", "required": true }
       }
     }
   }
