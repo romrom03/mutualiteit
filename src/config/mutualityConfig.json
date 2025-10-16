@@ -31,6 +31,19 @@
         "datum": { "label": "Datum betaling", "pdfField": "Text12", "required": true },
         "jaar": { "label": "Jaar", "pdfField": "Text11", "required": true }
       }
+    },
+    "Helan": {
+        "pdfTemplate": "Helan.pdf",
+        "fields": {
+            "achternaam": { "label": "Achternaam", "pdfField": "Naam", "required": true },
+            "voornaam": { "label": "Voornaam", "pdfField": "Voornaam", "required": true },
+            "adres": { "label": "Adres", "pdfField": "Adres", "required": true },
+            "rijksregisternummer": { "label": "Rijksregisternummer", "pdfField": "Rijksregister", "required": true },
+            "beginDatum": { "label": "Begin datum", "pdfField": "BeginDatum", "required": true },
+            "eindDatum": { "label": "Eind datum", "pdfField": "EindDatum", "required": true },
+            "aantalDagen": { "label": "Aantal dagen", "pdfField": "AantalDagen", "required": true },
+            "betaaldBedrag": { "label": "Betaald bedrag", "pdfField": "BetaaldBedrag", "required": true }
+        }
     }
   }
   

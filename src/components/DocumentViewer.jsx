@@ -9,6 +9,9 @@ export default function DocumentViewer() {
 
   // Haal de configuratie op voor de gekozen mutualiteit
   const config = mutualityConfig[mutualiteit] || null;
+  console.log("Gekozen mutualiteit:", mutualiteit);
+  console.log("Loaded config:", config);
+
 
   // Initialiseer formulierdata (altijd aanroepen, zelfs als config null is)
   const [formData, setFormData] = useState(
@@ -30,10 +33,16 @@ export default function DocumentViewer() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+  console.log("Formulierdata die wordt ingevuld:", formData);
+
 
   // PDF genereren
   const handleGenerate = async () => {
     try {
+      for (const [key, fieldConfig] of Object.entries(config.fields)) {
+        console.log(`Veld: ${key}, PDF veldnaam: ${fieldConfig.pdfField}, waarde: ${formData[key]}`);
+      }
+      
       // Genereer de ingevulde PDF
       const pdfBytes = await generateMutualityPDF(mutualiteit, formData, config.fields);
   

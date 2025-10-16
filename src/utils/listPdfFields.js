@@ -7,6 +7,7 @@ async function listPdfFields(pdfPath) {
   const form = pdfDoc.getForm();
   const fields = form.getFields();
   fields.forEach(f => console.log(f.getName()));
+  
 }
 
-listPdfFields("./public/templates/cm.pdf"); // pad naar je PDF
+listPdfFields("./public/templates/helan.pdf"); // pad naar je PDF
